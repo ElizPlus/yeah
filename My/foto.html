@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Document</title> 
+</head> 
+<style> 
+    body { 
+        display: flex; /* фиксируем картнку */ 
+        align-items: center; /* по горизонтали в центре */ 
+        justify-content: center; /* по вертикали */ 
+        height: 100vh; /* высота в 100% */ 
+        margin: 0; /* убираем внешние отступы */ 
+    }    
+ 
+    img { 
+        width: 800px; 
+        height: auto; 
+        max-height: 600px; 
+        transition: transform 0.5s; /* плавный переход */ 
+    } 
+</style> 
+<body> 
+    <!-- Поле ввода для количества градусов --> 
+    <input type="number" id="angle" value="15"> <!--  Создает поле ввода для чисел с идентификатором angle и начальным значением 15 --> 
+    <!-- Изображение, которое будет вращаться --> 
+    <img id="image" src="mer.png" alt="Sample Image"> <!-- Создает изображение с идентификатором image и альтернативным текстом Sample Image --> 
+     
+    <script> 
+        const image = document.getElementById('image'); // получаем элемент изображения по его идентификатору  
+        const input = document.getElementById('angle'); 
+        let currentAngle = 0; //Инициализирует переменную currentAngle для хранения текущего угла поворота изображения 
+ 
+        image.onclick = () => { // Добавляет обработчик клика на изображение 
+            // получаем значение угла из поля ввода и конвертируем его в целое число 
+            const angle = parseInt(input.value); // Получает значение угла из поля ввода, преобразует его в целое число и присваивает переменной angle. Если преобразование не удалось, устанавливает значение 0 
+ 
+            currentAngle += angle; // увеличиваем текущий угол на значение из поля ввода 
+            image.style.transform = rotate(${currentAngle}deg); // применение нового угла поворота к изображению 
+        }; 
+ 
+    </script> 
+</body> 
+</html>
