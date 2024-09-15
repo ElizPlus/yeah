@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for, redirect
 app = Flask(__name__)
 
 @app.route("/")
@@ -29,8 +29,6 @@ def author():
         </html>"""
 
 
-from flask import Flask, url_for
-app = Flask(__name__)
 
 @app.route("/lab1/oak")
 def oak(): 
@@ -59,3 +57,6 @@ def counter():
 </html>
 '''
 
+@app.route("/info")
+def info():
+    return redirect("/author") # redirect - перенаправление
