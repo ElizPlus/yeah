@@ -19,6 +19,7 @@ def web():
             "Content-Type": 'text/plain; charset=utf-8'
             }
 
+
 @app.route("/lab1/author")
 def author():
     name = "Плюснина Елизавета Евгеньевна" 
@@ -101,3 +102,24 @@ def created():
     </body>
 </html>
 ''', 201
+
+
+@app.route("/")
+@app.route("/index")
+def nstu():
+    return '''
+<!doctype html>
+<html>
+    <head>
+        <title>НГТУ, ФБ, Лабораторные работы</title>
+    </head>
+    <body>
+        <h1>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</h1>
+        <li><a href="/lab1">Первая лабораторная</a></li>
+
+    <footer>
+        <p>&copy; Плюснина Елизавета Евгеньевна, ФБИ-22, 3 курс, 2024</p>
+    </footer>
+    </body> 
+</html>
+'''
