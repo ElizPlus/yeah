@@ -141,3 +141,28 @@ def nstu2():
     </body> 
 </html>
 '''
+
+# Коды ответа HTTP
+@app.route('/400')
+def bad_request():
+    return "<h1>Ошибка 400: Неверный запрос</h1>", 400
+
+@app.route('/401')
+def unauthorized():
+    return "<h1>Ошибка 401: Неавторизованный запрос</h1>", 401
+
+@app.route('/402')
+def payment_required():
+    return "<h1>Ошибка 402: Требуется оплата</h1>", 402
+
+@app.route('/403')
+def forbidden():
+    return "<h1>Ошибка 403: Доступ запрещен</h1>", 403
+
+@app.route('/405')
+def method_not_allowed():
+    return "<h1>Ошибка 405: Метод не поддерживается</h1>", 405
+
+@app.route('/418')
+def im_a_teapot():
+    return "<h1>Ошибка 418: Я чайник</h1>", 418
