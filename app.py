@@ -3,7 +3,26 @@ app = Flask(__name__)
 
 @app.errorhandler(404)
 def not_found(err):
-    return "нет такой страницы", 404
+    image = url_for("static", filename="page.gif")
+    return '''
+    <!doctype html> 
+    <html>
+    <head>
+        <style>
+            img {
+                width: 100%;          
+                height: auto;          
+                display: block;       
+            }
+            </style> 
+    </head>
+        <body> 
+            <img src="''' + image + '''"> 
+            <p style="text-align: right;"><i>Кнопка "Go to homepage" фальшивая:)</i></p>
+        </body> 
+    </html>
+    ''', 404
+
 
 
 @app.route("/lab1/web")
