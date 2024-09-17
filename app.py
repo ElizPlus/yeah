@@ -78,7 +78,6 @@ count = 0
 def counter():
     global count
     count += 1
-    
     return '''
 <!doctype html> 
 <html>
@@ -185,3 +184,21 @@ def method_not_allowed():
 @app.route('/418')
 def im_a_teapot():
     return "<h1>Ошибка 418: Я чайник</h1>", 418
+
+
+@app.route('/error')
+def error():
+    a = 1 / 0 # Деление на ноль
+    return "Результат: " + a # Конкатенация числа и строки
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return '''
+<!doctype html> 
+<html>
+    <body> 
+        <h1>Ошибка на сервере 505</h1>
+        <p>Ну да, ага</p>
+    </body> 
+</html>
+''', 500
