@@ -1,4 +1,4 @@
-from flask import Flask, url_for, redirect
+from flask import Flask, url_for, redirect, render_template
 app = Flask(__name__)
 
 @app.errorhandler(404)
@@ -250,9 +250,9 @@ def mb():
 ''', 200, headers
 
 
-from flask import render_template
 
-created = False
+
+create = False
 
 @app.route('/lab1/resource')
 def resource():
@@ -260,43 +260,29 @@ def resource():
     create_link = url_for('created')
     delete_link = url_for('delete')
 
-    if created:
+    if create:
         status = 'Ресурс создан'
         delete_link = url_for('delete')
 
     return render_template('resource.html', status=status, create_link=create_link, delete_link=delete_link)
-    <!doctype html>
-<html>
-    <head>
-        <title>Ресурс</title>
-    </head>
-    <body>
-        <h1>Статус ресурса: {{ status }}</h1>
-        {% if status == 'Ресурс ещё не создан' %}
-            <a href="{{ create_link }}">Создать ресурс</a>
-        {% else %}
-            <a href="{{ delete_link }}">Удалить ресурс</a>
-        {% endif %}
-    </body>
-</html>
+    
 
+@app.route('/lab1/create')
+def create():
+    global create
 
-@app.route('/lab1/created')
-def created():
-    global created
-
-    if not created:
-        created = True
+    if not create:
+        create = True
         return 'Успешно: ресурс создан', 201
     else:
         return 'Отказано: ресурс уже создан', 400
 
 @app.route('/lab1/delete')
 def delete():
-    global created
+    global create
 
-    if created:
-        created = False
+    if create:
+        create = False
         return 'Успешно: ресурс удалён', 200
     else:
         return 'Отказано: ресурс отсутствует', 400

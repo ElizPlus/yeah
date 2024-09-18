@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Ресурс</title>
+    </head>
+    <body>
+        <h1>Статус ресурса: {{ status }}</h1>
+        {% if status == 'Ресурс ещё не создан' %}
+            <a href="{{ create_link }}">Создать ресурс</a>
+        {% else %}
+            <a href="{{ delete_link }}">Удалить ресурс</a>
+        {% endif %}
+    </body>
+</html>
