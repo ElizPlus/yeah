@@ -408,3 +408,20 @@ def calc2():
 @app.route('/lab2/calc/<int:a>')
 def calc_a(a):
     return redirect(f'/lab2/calc/{a}/1')
+
+books = [
+    {"author": "Дмитрий Емец", "title": "Мефодий Буслаев", "genre": "Фэнтези", "pages": 328},
+    {"author": "Рэй Брэдбери", "title": "451 градус по Фаренгейту", "genre": "Научная фантастика", "pages": 158},
+    {"author": "Федор Достоевский", "title": "Преступление и наказание", "genre": "Роман", "pages": 671},
+    {"author": "Донна Тартт", "title": "Щегол", "genre": "Роман", "pages": 832},
+    {"author": "Михаил Булгаков", "title": "Мастер и Маргарита", "genre": "Фантастика", "pages": 480},
+    {"author": "Мариам Петросян", "title": "Дом, в котором…", "genre": "Роман", "pages": 448},
+    {"author": "Эрих Мария Ремарк", "title": "Три товарища", "genre": "Роман", "pages": 480},
+    {"author": "Раиса Белоглазова", "title": "Ритка", "genre": "Повесть", "pages": 416},
+    {"author": "Лев Толстой", "title": "Война и мир", "genre": "Роман", "pages": 1225},
+    {"author": "Джек Лондон", "title": "Белый Клык", "genre": "Повесть", "pages": 336}
+]
+
+@app.route('/lab2/books')
+def show_books():
+    return render_template('books.html', books=books)

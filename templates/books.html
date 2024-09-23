@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор{{number}}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+</head>
+<body>
+    <main>
+        <h1>Список книг</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Автор</th>
+                <th>Название книги</th>
+                <th>Жанр</th>
+                <th>Количество страниц</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.author }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.genre }}</td>
+                <td>{{ book.pages }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </main>
+
+    <footer>
+        &copy; Плюснина Елизавета, ФБИ-22, 3 курс, 2024
+    </footer>
+</body>
+</html>
