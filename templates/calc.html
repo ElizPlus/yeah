@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор{{number}}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+</head>
+<body>
+    <main>
+        <main>
+            {{ a }} + {{ b }} = {{ a + b }}<br>
+            {{ a }} - {{ b }} = {{ a - b }}<br>
+            {{ a }} * {{ b }} = {{ a * b }}<br>
+            {{ a }}<sup>{{ b }}</sup> = {{ a ** b }}
+        </main>
+    </main>
+
+    <footer>
+        &copy; Плюснина Елизавета, ФБИ-22, 3 курс, 2024
+    </footer>
+</body>
+</html>
