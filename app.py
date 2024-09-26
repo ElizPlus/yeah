@@ -425,3 +425,53 @@ books = [
 @app.route('/lab2/books')
 def show_books():
     return render_template('books.html', books=books)
+
+
+
+cats_list = [
+    {
+        'name': 'Шотландская',
+        'description': 'Шотландская вислоухая кошка — это порода домашних кошек с характерными загнутыми вперед ушами.'
+    },
+    {
+        'name': 'Британская',
+        'description': 'Британская короткошерстная кошка — это крепко сложенная, коренастая кошка с округлыми чертами лица.'
+    },
+    {
+        'name': 'Бенгальская',
+        'description': 'Бенгальская кошка — это порода домашних кошек, известная своим пятнистым окрасом и энергичным характером.'
+    },
+    {
+        'name': 'Мейн-кун',
+        'description': 'Мейн-кун — это крупная порода домашних кошек с длинной шерстью и характерным окрасом.'
+    },
+    {
+        'name': 'Персидская',
+        'description': 'Персидская кошка — это порода домашних кошек с длинной шерстью и плоской мордой.'
+    }
+]
+
+@app.route('/lab2/cats')
+def show_cats():
+    img_files = ["schot.png", "brit.jpeg", "bengal.jpg", "kun.jpg", "pers.jpg"]
+    html = '''
+    <!doctype html>
+    <html>
+        <body>
+            <ul>
+    '''
+    for i, cat in enumerate(cats_list):
+        img_url = url_for("static", filename=img_files[i])
+        html += f'''
+                <li>
+                    <h2>{cat['name']}</h2>
+                    <img src="{img_url}" width="300">
+                    <p>{cat['description']}</p>
+                </li>
+        '''
+    html += '''
+        </body>
+    </html>
+    '''
+    return html
+    
