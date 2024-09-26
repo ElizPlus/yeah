@@ -10,9 +10,17 @@
     <header>
         WEB-программирование, 2 часть. {{ self.lab() }}
     </header>
+    <style>
+        a {
+            text-decoration: none; /* Убираем подчеркивание */
+            font-weight: bold; /* Жирный шрифт */
+            font-size: 16px; /* Размер шрифта */
+        }
+    </style>    
 
     <main>
         {% block main %} {% endblock %}
+        <a href="/">Корень сайта</a></li>
     </main>
 
     <footer>
