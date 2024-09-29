@@ -300,42 +300,35 @@ def a2():
 
 
 flower_list = ['орхидея', 'гибискус', 'гипсофила', 'фиалка']
+flower_prices = {'орхидея': 100, 'гибискус': 50, 'гипсофила': 30, 'фиалка': 20}
 
 @app.route('/lab2/flowers/<int:flower_id>')
 def flowers(flower_id):
     if flower_id >= len(flower_list):
-        return "такого цветка нет", 404
+        return "Такого цветка нет", 404
     else:
-        return f'''
-        <!doctype html>
-        <html>
-            <body>
-                <p>Цветок: {flower_list[flower_id]}</p>
-                <a href="/lab2/all_flowers">Ссылка на страницу вывода всех цветов</a>
-            </body>
-        </html>
-        '''
+        flower_name = flower_list[flower_id]
+        flower_price = flower_prices.get(flower_name)
+        return render_template('flower.html', flower_name=flower_name, flower_price=flower_price)
+
+
+@app.route('/lab2/delete_flower/<int:flower_id>')
+def delete_flower(flower_id):
+    if flower_id >= len(flower_list):
+        return "Такого цветка нет", 404
+    else:
+        flower_list.pop(flower_id)
+        return redirect(url_for('all_flowers'))
 
 
 @app.route('/lab2/add_flower/', defaults={'name': None})
 @app.route('/lab2/add_flower/<name>')
 def add_flower(name):
-    flower_list.append(name)
-
     if name is None:
         return "Вы не задали имя цветка", 400
     else:
-        return f'''
-    <!doctype html>
-    <html>
-        <body>
-        <h1>Добавлен новый цветок</h1>
-        <p>Название нового цветка: {name} </p>
-        <p>Всего цветов: {len(flower_list)} </p>
-        <p>Полный список: {flower_list} </p>
-        </body>
-    </html>
-    '''
+        flower_list.append(name)
+        return redirect(url_for('all_flowers'))
 
 @app.route('/lab2/all_flowers')
 def all_flowers():
@@ -346,11 +339,26 @@ def all_flowers():
         <h1>Список всех цветов</h1>
         <ul>
             <p>Всего цветов: {len(flower_list)} </p>
-            <p>Полный список: {flower_list} </p>
+            <p>Полный список:</p>
+            <ul>
+                {''.join([f'<li>{flower} <a href="/lab2/delete_flower/{i}">удалить</a></li>' for i, flower in enumerate(flower_list)])}
+            </ul>
         </ul>
+        <form action="/lab2/add_flower" method="get">
+            <input type="text" name="name" placeholder="Название нового цветка">
+            <button type="submit">Добавить цветок</button>
+        </form>
+        <a href="/lab2/delete_all_flowers">Удалить все цветы</a>
         </body>
     </html>
     '''
+
+@app.route('/lab2/delete_all_flowers')
+def delete_all_flowers():
+    global flower_list
+    flower_list = []
+    return redirect(url_for('all_flowers'))
+
 
 @app.route('/lab2/clear')
 def clear():
