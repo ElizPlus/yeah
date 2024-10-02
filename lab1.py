@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, redirect
+from flask import Blueprint, url_for, redirect, render_template
 lab1 = Blueprint('lab1', __name__)
 
 
@@ -135,55 +135,6 @@ def nstu2():
     </body> 
 </html>
 '''
-
-
-# Коды ответа HTTP
-@lab1.route('/400')
-def bad_request():
-    return "<h1>Ошибка 400: Неверный запрос</h1>", 400
-
-
-@lab1.route('/401')
-def unauthorized():
-    return "<h1>Ошибка 401: Неавторизованный запрос</h1>", 401
-
-
-@lab1.route('/402')
-def payment_required():
-    return "<h1>Ошибка 402: Требуется оплата</h1>", 402
-
-
-@lab1.route('/403')
-def forbidden():
-    return "<h1>Ошибка 403: Доступ запрещен</h1>", 403
-
-
-@lab1.route('/405')
-def method_not_allowed():
-    return "<h1>Ошибка 405: Метод не поддерживается</h1>", 405
-
-
-@lab1.route('/418')
-def im_a_teapot():
-    return "<h1>Ошибка 418: Я чайник</h1>", 418
-
-
-@lab1.route('/error')
-def error():
-    a = 1 / 0 # Деление на ноль
-    
-    
-@lab1.errorhandler(500)
-def internal_server_error(error):
-    return '''
-<!doctype html> 
-<html>
-    <body> 
-        <h1>Ошибка на сервере 505</h1>
-        <p>Ну да, ага</p>
-    </body> 
-</html>
-''', 500
 
 
 @lab1.route('/mef')
