@@ -31,7 +31,7 @@ def delete_flower(flower_id):
         return "Такого цветка нет", 404
     else:
         flower_list.pop(flower_id)
-        return redirect(url_for('all_flowers'))
+        return redirect(url_for('lab2.all_flowers'))
 
 
 @lab2.route('/lab2/add_flower/', defaults={'name': None})
@@ -40,8 +40,8 @@ def add_flower(name):
     if name is None:
         return "Вы не задали имя цветка", 400
     else:
-        flower_list.lab2end(name)
-        return redirect(url_for('all_flowers'))
+        flower_list.append(name)
+        return redirect(url_for('lab2.all_flowers'))
 
 @lab2.route('/lab2/all_flowers')
 def all_flowers():
@@ -70,7 +70,7 @@ def all_flowers():
 def delete_all_flowers():
     global flower_list
     flower_list = []
-    return redirect(url_for('all_flowers'))
+    return redirect(url_for('lab2.all_flowers'))
 
 
 @lab2.route('/lab2/clear')
