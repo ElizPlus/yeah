@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+
+   
+    <form action="/lab3/success">
+       <div>
+            Спасибо, ваш заказ оплачен на сумму {{ price }} рублей, ожидайте доставку.
+        </div> 
+        
+        <div>
+            <a href="/lab3/order">Заказ напитка</a>
+        </div>
+    </form>
+{% endblock %}
