@@ -79,9 +79,19 @@ def settings():
         resp.set_cookie('color', color)
         return resp
 
-    color = request.args.get('color')
+    color = request.cookies.get('color')
     resp = make_response(render_template('/lab3/settings.html', color=color))
     return resp
+
+
+@lab3.route('/lab3/clear_cookies')
+def clear_cookies():
+    resp = make_response(redirect('/lab3/settings'))
+    resp.delete_cookie('color')
+    return resp
+
+if __name__ == '__main__':
+    lab3.run(debug=True)
 
 
 @lab3.route('/lab3/ticket', methods=['GET', 'POST'])
@@ -118,3 +128,43 @@ def ticket():
                                price=price, departure=departure, destination=destination, date=date)
 
     return render_template('lab3/ticket_form.html')
+
+
+books = [
+    {"title": "1984", "price": 379, "author": "Джордж Оруэлл", "genre": "Антиутопия"},
+    {"title": "Убить пересмешника", "price": 125, "author": "Харпер Ли", "genre": "Классика"},
+    {"title": "Великий Гэтсби", "price": 300, "author": "Фрэнсис Скотт Фицджеральд", "genre": "Классика"},
+    {"title": "Гордость и предубеждение", "price": 185, "author": "Джейн Остин", "genre": "Роман"},
+    {"title": "Над пропастью во ржи", "price": 253, "author": "Джером Дэвид Сэлинджер", "genre": "Подростковый роман"},
+    {"title": "Моби Дик", "price": 500, "author": "Герман Мелвилл", "genre": "Приключения"},
+    {"title": "Война и мир", "price": 850, "author": "Лев Толстой", "genre": "Исторический роман"},
+    {"title": "Одиссея", "price": 250, "author": "Гомер", "genre": "Эпическая поэзия"},
+    {"title": "О дивный новый мир", "price": 198, "author": "Олдос Хаксли", "genre": "Антиутопия"},
+    {"title": "Преступление и наказание", "price": 490, "author": "Фёдор Достоевский", "genre": "Психологический роман"},
+    {"title": "Властелин колец", "price": 630, "author": "Джон Рональд Руэл Толкин", "genre": "Фэнтези"},
+    {"title": "Гарри Поттер и философский камень", "price": 512, "author": "Джоан Роулинг", "genre": "Фэнтези"},
+    {"title": "Хоббит", "price": 470, "author": "Джон Рональд Руэл Толкин", "genre": "Фэнтези"},
+    {"title": "Алхимик", "price": 240, "author": "Пауло Коэльо", "genre": "Фикшн"},
+    {"title": "Маленький принц", "price": 158, "author": "Антуан де Сент-Экзюпери", "genre": "Детская литература"},
+    {"title": "Код да Винчи", "price": 1105, "author": "Дэн Браун", "genre": "Мистика"},
+    {"title": "Унесенные ветром", "price": 302, "author": "Маргарет Митчелл", "genre": "Исторический роман"},
+    {"title": "Сияние", "price": 270, "author": "Стивен Кинг", "genre": "Ужасы"},
+    {"title": "Голодные игры", "price": 360, "author": "Сьюзен Коллинз", "genre": "Антиутопия"},
+    {"title": "Дорога", "price": 200, "author": "Кормак Маккарти", "genre": "Постапокалипсис"}
+]
+
+@lab3.route('/lab3/books')
+def books_list():
+    return render_template('lab3/books.html', books=books)
+
+@lab3.route('/lab3/filter_books', methods=['GET', 'POST'])
+def filter_books():
+    if request.method == 'POST':
+        min_price = float(request.form['min_price'])
+        max_price = float(request.form['max_price'])
+        filtered_books = [book for book in books if min_price <= book['price'] <= max_price]
+        return render_template('lab3/filtered_books.html', books=filtered_books)
+    return render_template('lab3/filter_form.html')
+
+if __name__ == '__main__':
+    lab3.run(debug=True)

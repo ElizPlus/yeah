@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+    <body>
+        <h1>Список книг</h1>
+        <ul>
+            {% for book in books %}
+                <li>
+                    <strong>{{ book.title }}</strong> автора {{ book.author }} - {{ book.genre }} - ${{ book.price }}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('lab3.filter_books') }}">Фильтровать по цене</a>
+    </body>
+{% endblock %}
