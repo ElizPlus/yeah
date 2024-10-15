@@ -139,7 +139,7 @@ def nstu2():
 
 @lab1.route('/mef')
 def mb():
-    img = url_for("\static\lab1", filename="dep.jpg")  
+    img = url_for("lab1/dep.jpg", filename="dep.jpg")  
     headers = {
         'Content-Language': 'ru', # страница на русском языке
         'X-My-Header': 'Hello', 
