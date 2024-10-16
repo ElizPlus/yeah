@@ -21,9 +21,9 @@ def cookie():
 @lab3.route('/lab3/del_cookie')
 def del_cookie():
     resp = make_response(redirect('/lab3/'))
-    resp.delete_cookie_cookie('name')
-    resp.delete_cookie_cookie('age')
-    resp.delete_cookie_cookie('name_color')
+    resp.delete_cookie('name')
+    resp.delete_cookie('age')
+    resp.delete_cookie('name_color')
     return resp
 
 
