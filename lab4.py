@@ -118,11 +118,12 @@ def tree():
     if operation == 'cut':
         tree_count -= 1
     elif operation == 'plant':
-        tree_count +=1
+        if tree_count < 5:
+            tree_count +=1
 
     return redirect('/lab4/tree')
     
-    return render_template('lab4/tree.html', tree_count=tree_count)
+
 
 
 users = [
@@ -141,7 +142,7 @@ def login():
     login = request.form.get('login')
     password = request.form.get('password')
 
-    fot user in users:
+    for user in users:
         if login == user['login'] and password == user['password']:
             return render_template('/lab4/login.html', login=login, authorized=True)
 
