@@ -11,10 +11,105 @@
     <link rel="icon" href="{{url_for('static', filename='favicon-32x32.png')}}">
     
     <style>
-        body{
+        body {
+            background-color: #f0f0f0; /* Фон страницы */
+            font-family: Arial, sans-serif; /* Шрифт */
+            margin: 0;
+            padding: 0;
             {% if request.cookies.get('color') %}
             color: {{ request.cookies.get('color') }};
             {% endif %}
+        }
+
+        header, footer {
+            background-color: #333; /* Цвет фона шапки и подвала */
+            color: white; /* Цвет текста в шапке и подвале */
+            padding: 10px 20px; /* Отступы внутри шапки и подвала */
+            text-align: center; /* Выравнивание текста по центру */
+        }
+
+        main {
+            padding: 20px; /* Отступы внутри основного контента */
+        }
+
+        a {
+            text-decoration: none; /* Убираем подчеркивание */
+            font-weight: bold; /* Жирный шрифт */
+            font-size: 16px; /* Размер шрифта */
+            color: #007bff; /* Цвет ссылок */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Подчеркивание при наведении */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            color: green;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .discount-message {
+            color: blue;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -22,22 +117,14 @@
     <header>
         WEB-программирование, 2 часть. {{ self.lab() }}
     </header>
-    <style>
-        a {
-            text-decoration: none; /* Убираем подчеркивание */
-            font-weight: bold; /* Жирный шрифт */
-            font-size: 16px; /* Размер шрифта */
-        }
-    </style>    
 
     <main>
         {% block main %} {% endblock %}
-        <a href="/">Корень сайта</a></li>
+        <a href="/">Корень сайта</a>
     </main>
 
     <footer>
         &copy; Плюснина Елизавета, ФБИ-22, 3 курс, 2024
     </footer>
-
 </body>
 </html>
