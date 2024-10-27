@@ -259,3 +259,70 @@ def grain_order():
         return render_template('/lab4/grain_order.html', message=message, discount_message=discount_message)
 
     return render_template('/lab4/grain_order.html')
+
+
+
+@lab4.route('/lab4/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        login = request.form.get('login')
+        password = request.form.get('password')
+        name = request.form.get('name')
+        gender = request.form.get('gender')
+
+        if not login or not password or not name or not gender:
+            error = 'Все поля обязательны для заполнения'
+            return render_template('/lab4/register.html', error=error)
+
+        for user in users:
+            if login == user['login']:
+                error = 'Пользователь с таким логином уже существует'
+                return render_template('/lab4/register.html', error=error)
+
+        users.append({'login': login, 'password': password, 'name': name, 'gender': gender})
+        return redirect('/lab4/login')
+
+    return render_template('/lab4/register.html')
+
+
+@lab4.route('/lab4/users', methods=['GET', 'POST'])
+def users_list():
+    if 'login' not in session:
+        return redirect('/lab4/login')
+
+    if request.method == 'POST':
+        action = request.form.get('action')
+        if action == 'delete':
+            users[:] = [user for user in users if user['login'] != session['login']]
+            session.pop('login', None)
+            session.pop('name', None)
+            return redirect('/lab4/login')
+        elif action == 'edit':
+            return redirect('/lab4/edit_profile')
+
+    return render_template('/lab4/users.html', users=users)
+
+
+@lab4.route('/lab4/edit_profile', methods=['GET', 'POST'])
+def edit_profile():
+    if 'login' not in session:
+        return redirect('/lab4/login')
+
+    if request.method == 'POST':
+        new_password = request.form.get('new_password')
+        new_name = request.form.get('new_name')
+
+        if not new_password or not new_name:
+            error = 'Все поля обязательны для заполнения'
+            return render_template('/lab4/edit_profile.html', error=error)
+
+        for user in users:
+            if user['login'] == session['login']:
+                user['password'] = new_password
+                user['name'] = new_name
+                session['name'] = new_name
+                break
+
+        return redirect('/lab4/users')
+
+    return render_template('/lab4/edit_profile.html')
