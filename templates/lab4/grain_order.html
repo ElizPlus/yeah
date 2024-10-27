@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div class="grain-order-container">
+        <h1>Заказ зерна</h1>
+
+        <form method="post">
+            <div class="input-group">
+                <label for="grain_type">Выберите тип зерна:</label>
+                <select id="grain_type" name="grain_type">
+                    <option value="ячмень">Ячмень</option>
+                    <option value="овёс">Овёс</option>
+                    <option value="пшеница">Пшеница</option>
+                    <option value="рожь">Рожь</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="weight">Укажите вес (в тоннах):</label>
+                <input type="text" id="weight" name="weight">
+            </div>
+            <div class="button-group">
+                <button type="submit">Заказать</button>
+            </div>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if message %}
+            <div class="message">{{ message }}</div>
+            {% if discount_message %}
+                <div class="discount-message">{{ discount_message }}</div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <style>
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .message {
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
