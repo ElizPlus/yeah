@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
-{% block lab %}Нравится/не нравится{% endblock %}
+{% block lab %}Лабораторная 4{% endblock %}
 
 {% block main %}
 
     {% if authorized %}
         <h1>Добро пожаловать, {{ login }}!</h1>
+        <div>
+            <form action="/lab4/logout" method="post">
+                <button>Выход</button>
+            </form>
+        </div>
     {% else %}
 
         <h1>Вход</h1>
