@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div class="fridge-container">
+        <h1>Холодильник</h1>
+
+        <div class="fridge-window">
+            <form method="post">
+                <div class="input-group">
+                    <label for="temperature">Установить температуру:</label>
+                    <input type="text" id="temperature" name="temperature">
+                </div>
+                <div class="button-group">
+                    <button type="submit">Установить</button>
+                </div>
+            </form>
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+
+            {% if message %}
+                <div class="message">{{ message }}</div>
+                <div class="snowflakes">
+                    {% for _ in range(snowflakes) %}
+                        <span class="snowflake">&#10052;</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <style>
+        .fridge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .fridge-window {
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button-group {
+            margin-top: 10px;
+        }
+
+        .button-group button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .message {
+            color: blue;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .snowflakes {
+            margin-top: 10px;
+        }
+
+        .snowflake {
+            color: blue;
+            font-size: 24px;
+        }
+    </style>
+{% endblock %}
