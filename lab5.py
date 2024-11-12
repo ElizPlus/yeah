@@ -227,3 +227,41 @@ def delete_article(article_id):
 
     db_close(conn, cur)
     return redirect('/lab5/list')
+
+
+@lab5.route('/lab5/users')
+def users():
+    conn, cur = db_connect()
+
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT login FROM users;")
+    else:
+        cur.execute("SELECT login FROM users;")
+
+    users = cur.fetchall()
+
+    db_close(conn, cur)
+    return render_template('/lab5/users.html', users=users)
+
+
+@lab5.route('/lab5/articles')
+def articles():
+    conn, cur = db_connect()
+
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("""
+            SELECT * FROM articles 
+            WHERE is_public = TRUE 
+            ORDER BY is_favorite DESC, id ASC;
+        """)
+    else:
+        cur.execute("""
+            SELECT * FROM articles 
+            WHERE is_public = TRUE 
+            ORDER BY is_favorite DESC, id ASC;
+        """)
+
+    articles = cur.fetchall()
+
+    db_close(conn, cur)
+    return render_template('/lab5/articles.html', articles=articles)

@@ -19,17 +19,14 @@
                 <li>
                     <h2>{{ article['title'] }}</h2>
                     <blockquote>{{ article['article_text'] }}</blockquote>
-                    <form action="/lab5/edit_article/{{ article['id'] }}" method="get" style="display:inline;">
-                        <button type="submit">Редактировать</button>
-                    </form>
-                    <form action="/lab5/delete_article/{{ article['id'] }}" method="post" style="display:inline;">
-                        <button type="submit">Удалить</button>
-                    </form>
+                    {% if article['is_favorite'] %}
+                        <span class="favorite">Любимая статья</span>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>У вас пока нет статей.</p>
+        <p>Нет доступных статей.</p>
     {% endif %}
 
 {% endblock %}
