@@ -2,12 +2,34 @@
 
 {% block lab %}Лабораторная работа 5{% endblock %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+{% endblock %}
+
 {% block main %}
     <h1>Cтатьи</h1>
 
-    {% for article in articles %}
-        <h2>{{ article['title'] }}</h2>
-        <blockquote>{{ article['article_text'] }}</blockquote>
-    {% endfor %}
+    {% if articles %}
+        <ul>
+            {% for article in articles %}
+                <li>
+                    <h2>{{ article['title'] }}</h2>
+                    <blockquote>{{ article['article_text'] }}</blockquote>
+                    <form action="/lab5/edit_article/{{ article['id'] }}" method="get" style="display:inline;">
+                        <button type="submit">Редактировать</button>
+                    </form>
+                    <form action="/lab5/delete_article/{{ article['id'] }}" method="post" style="display:inline;">
+                        <button type="submit">Удалить</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У вас пока нет статей.</p>
+    {% endif %}
 
 {% endblock %}

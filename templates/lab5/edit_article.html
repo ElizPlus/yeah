@@ -11,21 +11,23 @@
 {% endblock %}
 
 {% block main %}
-    <h1>Регистрация</h1>
-    <form action="/lab5/register" method="post">
+    <h1>Редактирование статьи</h1>
+
+    <form method="post">
         <div>
             <label>
-                Логин: <input type="text" name="login">
+                Название статьи:
+                <input type="text" maxlength="50" name="title" value="{{ article['title'] }}">
             </label>
         </div>
         <div>
-            <label>
-                Пароль: <input type="password" name="password">
-            </label>
+            <textarea name="article_text">{{ article['article_text'] }}</textarea>
         </div>
         {% if error %}
             <div class="error">{{ error }}</div>
         {% endif %}
-        <button type="submit">Зарегистрироваться</button>
+        <div>
+            <button type="submit">Сохранить</button>
+        </div>
     </form>
 {% endblock %}
