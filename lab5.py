@@ -265,3 +265,4 @@ def articles():
 
     db_close(conn, cur)
     return render_template('/lab5/articles.html', articles=articles)
+    
