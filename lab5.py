@@ -13,6 +13,7 @@ def lab():
 
 
 def db_connect():
+    print(current_app.config['DB_TYPE'])
     if current_app.config['DB_TYPE'] == 'postgres':
         conn = psycopg2.connect(
             host = '127.0.0.1',
@@ -265,4 +266,3 @@ def articles():
 
     db_close(conn, cur)
     return render_template('/lab5/articles.html', articles=articles)
-    

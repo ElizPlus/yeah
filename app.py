@@ -4,18 +4,20 @@ from lab2 import lab2
 from lab3 import lab3
 from lab4 import lab4
 from lab5 import lab5
+from lab6 import lab6
 import os
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY' 'секретно-секретный секрет')
-app.config['DB_TYPE'] = os.getenv('DB_TYPE' 'postgres')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'секретно-секретный секрет')
+app.config['DB_TYPE'] = os.getenv('DB_TYPE', 'postgres')
 
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
 app.register_blueprint(lab3)
 app.register_blueprint(lab4)
 app.register_blueprint(lab5)
+app.register_blueprint(lab6)
 
 
 @app.errorhandler(404)
@@ -57,6 +59,7 @@ def nstu():
         <li><a href="/lab3/">Третья лабораторная</a></li>
         <li><a href="/lab4/">Четвёртая лабораторная</a></li>
         <li><a href="/lab5/">Пятая лабораторная</a></li>
+        <li><a href="/lab5/">Шестая лабораторная</a></li>
     <footer>
         <p>&copy; Плюснина Елизавета Евгеньевна, ФБИ-22, 3 курс, 2024</p>
     </footer>
