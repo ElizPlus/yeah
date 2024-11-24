@@ -2,6 +2,37 @@
 
 {% block lab %}Лабораторная работа 6{% endblock %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <style>
+        .office-list li {
+            margin-bottom: 10px;
+        }
+
+        .office-list button {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .office-list .booking-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .office-list .release-button {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+{% endblock %}
+
 {% block script %}
 <script>
     function getOfficeList() {
@@ -23,25 +54,32 @@
             const office_list = data.result;
             const ul = document.getElementById('office-list');
             ul.innerHTML = '';
+            let totalCost = 0; // Переменная для общей стоимости аренды
+
             for(let i = 0; i < office_list.length; i++) {
                 const office = office_list[i];
                 const li = document.createElement('li');
-                li.innerText = `${office.number}: ${office.tenant || 'свободен'}`;
+                li.innerText = `${office.number}: ${office.tenant || 'свободен'} (Цена: ${office.price} руб.)`;
 
                 const bookingButton = document.createElement('button');
                 bookingButton.innerText = 'Зарезервировать';
                 bookingButton.onclick = function() {booking(office.number)};
+                bookingButton.classList.add('booking-button');
                 li.appendChild(bookingButton);
 
                 if (office.tenant) {
+                    totalCost += office.price; // Добавляем цену арендованного офиса
                     const releaseButton = document.createElement('button');
                     releaseButton.innerText = 'Освободить';
                     releaseButton.onclick = function() {cancellation(office.number)};
+                    releaseButton.classList.add('release-button');
                     li.appendChild(releaseButton);
                 }
 
                 ul.appendChild(li);
             }
+            // Обновляем общую стоимость аренды
+            document.getElementById('total-cost').innerText = `Общая стоимость арендованных офисов: ${totalCost} руб.`;
         });
     }
 
@@ -130,5 +168,6 @@
 
 {% block main %}   
     <h1>Список кабинетов</h1>
-    <ul id="office-list"></ul>
+    <ul id="office-list" class="office-list"></ul>
+    <div id="total-cost">Общая стоимость арендованных офисов</div>
 {% endblock %}
