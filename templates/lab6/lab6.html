@@ -2,37 +2,6 @@
 
 {% block lab %}Лабораторная работа 6{% endblock %}
 
-{% block head %}
-    {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link rel="icon" href="{{ url_for('static', filename='favicon-16x16.png') }}">
-    <link rel="icon" href="{{ url_for('static', filename='favicon-32x32.png') }}">
-    <style>
-        .office-list li {
-            margin-bottom: 10px;
-        }
-
-        .office-list button {
-            margin-right: 10px;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .office-list .booking-button {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .office-list .release-button {
-            background-color: #dc3545;
-            color: white;
-        }
-    </style>
-{% endblock %}
-
 {% block script %}
 <script>
     function getOfficeList() {
@@ -61,20 +30,18 @@
                 const li = document.createElement('li');
                 li.innerText = `${office.number}: ${office.tenant || 'свободен'} (Цена: ${office.price} руб.)`;
 
-                const bookingButton = document.createElement('button');
-                bookingButton.innerText = 'Зарезервировать';
-                bookingButton.onclick = function() {booking(office.number)};
-                bookingButton.classList.add('booking-button');
-                li.appendChild(bookingButton);
-
+                const button = document.createElement('button');
                 if (office.tenant) {
+                    button.innerText = 'Освободить';
+                    button.onclick = function() {cancellation(office.number)};
+                    button.classList.add('release-button');
                     totalCost += office.price; // Добавляем цену арендованного офиса
-                    const releaseButton = document.createElement('button');
-                    releaseButton.innerText = 'Освободить';
-                    releaseButton.onclick = function() {cancellation(office.number)};
-                    releaseButton.classList.add('release-button');
-                    li.appendChild(releaseButton);
+                } else {
+                    button.innerText = 'Зарезервировать';
+                    button.onclick = function() {booking(office.number)};
+                    button.classList.add('booking-button');
                 }
+                li.appendChild(button);
 
                 ul.appendChild(li);
             }
@@ -170,4 +137,28 @@
     <h1>Список кабинетов</h1>
     <ul id="office-list" class="office-list"></ul>
     <div id="total-cost">Общая стоимость арендованных офисов</div>
+
+    <style>
+        .office-list li {
+            margin-bottom: 10px;
+        }
+
+        .office-list button {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .office-list .booking-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .office-list .release-button {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
 {% endblock %}
