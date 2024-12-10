@@ -39,6 +39,22 @@ function fillFilmList() {
                     });
             }
 
+            function showModal() {
+                document.querySelector('div.modal').style.display = 'block';
+            }
+
+            function hideModal() {
+                document.querySelector('div.modal').style.display = 'none';
+            }
+
+            function cancel() {
+                hideModal();
+            }
+
+            function addFilm() {
+                showModal();
+            }
+
             tdActions.append(editButton);
             tdActions.append(delButton);
 
