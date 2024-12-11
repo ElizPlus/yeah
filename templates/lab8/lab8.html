@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 8{% endblock %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block main %}
+    <h1>База знаний</h1>
+    <div class="user-info">
+        <span><a href="/lab8/login">Вход</a></span>
+        <span><a href="/lab8/register">Регистрация</a></span>
+        <span><a href="/lab8/articles">Список статей</a></span>
+        <span><a href="/lab8/create">Создать статью</a></span>
+        <span>{{ login if login else 'Anonymous' }}</span>
+    </div>
+{% endblock %}

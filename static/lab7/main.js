@@ -56,7 +56,6 @@ function fillFilmList() {
 }
 
 
-
 function deleteFilm(id, title) {
     if (!confirm(`Вы точно хотите удалить фильм "${title}"?`))
         return;
@@ -115,8 +114,8 @@ function sendFilm() {
             return resp.json();
         })
         .then(function (errors) {
-            if (errors.description) {
-                document.getElementById('description-error').innerText = errors.description;
+            if (errors.error) {
+                document.getElementById('description-error').innerText = errors.error;
             }
         });
 }
