@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 8{% endblock %}
+
+{% block main %}
+    <h1>Результаты поиска по запросу "{{ search_query }}"</h1>
+
+    <ul>
+        {% for article in articles %}
+            <li>
+                <h2>{{ article.title }}</h2>
+                <p>{{ article.article_text }}</p>
+                <p>Автор: {{ article.user.login }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

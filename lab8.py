@@ -112,3 +112,77 @@ def create_article():
     db.session.commit()
 
     return redirect('/lab8/articles')
+
+
+@lab8.route('/lab8/edit_article/<int:article_id>', methods=['GET', 'POST'])
+@login_required
+def edit_article(article_id):
+    article = articles.query.get(article_id)
+
+    if not article:
+        return render_template('lab8/articles.html', error='Статья не найдена')
+
+    if article.login_id != current_user.id:
+        return render_template('lab8/articles.html', error='Вы не можете редактировать эту статью')
+
+    if request.method == 'GET':
+        return render_template('/lab8/edit_article.html', article=article)
+    
+    title = request.form.get('title')
+    article_text = request.form.get('article_text')
+
+    if not title:
+        return render_template('lab8/edit_article.html', error='Введите заголовок статьи')
+
+    if not article_text:
+        return render_template('lab8/edit_article.html', error='Введите текст статьи')
+
+    article.title = title
+    article.article_text = article_text
+    db.session.commit()
+
+    return redirect('/lab8/articles')
+
+
+@lab8.route('/lab8/delete_article/<int:article_id>', methods=['POST'])
+@login_required
+def delete_article(article_id):
+    article = articles.query.get(article_id)
+
+    if not article:
+        return render_template('lab8/articles.html', error='Статья не найдена')
+
+    if article.login_id != current_user.id:
+        return render_template('lab8/articles.html', error='Вы не можете удалить эту статью')
+
+    db.session.delete(article)
+    db.session.commit()
+
+    return redirect('/lab8/articles')
+
+
+@lab8.route('/lab8/public_articles')
+def public_articles():
+    articles = articles.query.filter_by(is_public=True).all()  # Получаем только публичные статьи
+    return render_template('lab8/public_articles.html', articles=articles)
+
+
+@lab8.route('/lab8/search_articles', methods=['GET', 'POST'])
+@login_required
+def search_articles():
+    if request.method == 'GET':
+        return render_template('lab8/search_articles.html')
+    
+    search_query = request.form.get('search_query')
+
+    if not search_query:
+        return render_template('lab8/search_articles.html', error='Введите строку для поиска')
+
+    # Поиск по публичным статьям и статьям текущего пользователя
+    user_articles = articles.query.filter(
+        (articles.login_id == current_user.id) | (articles.is_public == True)
+    ).filter(
+        (articles.title.contains(search_query)) | (articles.article_text.contains(search_query))
+    ).all()
+
+    return render_template('lab8/search_results.html', articles=user_articles, search_query=search_query)
