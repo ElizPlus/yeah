@@ -6,7 +6,7 @@ from os import path
 from db import db
 from db.models import users, articles
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import login_user, login_required, current_user
+from flask_login import login_user, login_required, current_user, logout_user
 
 
 lab8 = Blueprint('lab8', __name__)
@@ -68,6 +68,13 @@ def login():
 
 
 @lab8.route('/lab8/articles')
-@login_required
+@login_required     # страница доступна только авторизованным пользователям
 def article_list():
     return "список статей"
+
+
+@lab8.route('/lab8/logout')
+@login_required
+def logout():
+    logout_user()   # функция удаления сессии
+    return redirect('/lab8/')
