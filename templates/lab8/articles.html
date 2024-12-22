@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 8{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+{% endblock %}
+
+{% block main %}
+    <h1>Cтатьи</h1>
+
+    {% if articles %}
+        <ul>
+            {% for article in articles %}
+                <li>
+                    <h2>{{ article['title'] }}</h2>
+                    <blockquote>{{ article['article_text'] }}</blockquote>
+                    {% if article['is_favorite'] %}
+                        <span class="favorite">Любимая статья</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет доступных статей.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
-{% block lab %}Лабораторная работа 5{% endblock %}
+{% block lab %}Лабораторная работа 8{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+{% endblock %}
 
 {% block main %}
     <h1>Вход в систему</h1>
@@ -14,6 +22,12 @@
         <div>
             <label>
                 Пароль: <input type="password" name="password">
+            </label>
+        </div>
+
+        <div>
+            <label>
+                Запомнить меня: <input type="checkbox" name="remember_me">
             </label>
         </div>
 

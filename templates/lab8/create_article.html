@@ -11,17 +11,17 @@
 {% endblock %}
 
 {% block main %}
-    <h1>Регистрация</h1>
-    <form action="/lab8/register" method="post">
+    <h1>Создание статьи</h1>
+    <form action="/lab8/create_article" method="post">
         <div>
             <label>
-                Логин: <input type="text" name="login">
+                Заголовок: <input type="text" name="title">
             </label>
         </div>
 
         <div>
             <label>
-                Пароль: <input type="password" name="password">
+                Текст статьи: <textarea name="article_text"></textarea>
             </label>
         </div>
 
@@ -29,6 +29,6 @@
             <div class="error">{{ error }}</div>
         {% endif %}
         
-        <button type="submit">Зарегистрироваться</button>
+        <button type="submit">Создать статью</button>
     </form>
 {% endblock %}

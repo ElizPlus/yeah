@@ -2,6 +2,14 @@
 
 {% block lab %}Лабораторная работа 8{% endblock %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+{% endblock %}
+
 {% block script %}
 
 {% endblock %}
@@ -15,4 +23,29 @@
         <span><a href="/lab8/create">Создать статью</a></span>
         <span>{{ login if login else 'Anonymous' }}</span>
     </div>
+
+    <style>
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+
+        .user-info span {
+            font-weight: bold;
+        }
+
+        .user-info a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .user-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
 {% endblock %}
