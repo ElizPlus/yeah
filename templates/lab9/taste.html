@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 9{% endblock %}
+
+{% block main %}
+    <h1>Что именно вам больше нравится?</h1>
+    <form method="post">
+        {% for value, label in options %}
+            <label><input type="radio" name="taste" value="{{ value }}" required> {{ label }}</label>
+        {% endfor %}
+        <button type="submit">Далее</button>
+    </form>
+{% endblock %}
