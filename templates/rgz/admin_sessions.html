@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Управление сеансами{% endblock %}
+
+{% block main %}
+    <h2>Управление сеансами</h2>
+    <form method="POST">
+        <label>Фильм:</label>
+        <input type="text" name="movie" required><br>
+        <label>Дата:</label>
+        <input type="date" name="date" required><br>
+        <label>Время:</label>
+        <input type="time" name="time" required><br>
+        <button type="submit">Добавить сеанс</button>
+    </form>
+
+    <h3>Список сеансов:</h3>
+    <ul>
+        {% for session in sessions %}
+            <li>
+                {{ session.movie }} - {{ session.date }} {{ session.time }}
+                <form method="POST" action="/rgz/admin/session/{{ session.id }}/delete" style="display:inline;">
+                    <button type="submit">Удалить</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/rgz/">На главную</a>
+{% endblock %}

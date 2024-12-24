@@ -111,6 +111,172 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
+
+
+        
+        /* Стили для сообщений об ошибках */
+        .error-messages {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .error-message {
+            color: red; /* Красный цвет текста */
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        /* Другие стили */
+        .seats-container {
+            display: grid;
+            grid-template-columns: repeat(10, 50px); /* 10 мест в ряд */
+            gap: 10px; /* Расстояние между местами */
+            margin-right: 20px; /* Отступ справа для разделения */
+            position: relative; /* Убедитесь, что места находятся выше формы */
+            z-index: 2;
+        }
+        .seat {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #000;
+            background-color: #f0f0f0;
+            font-weight: bold;
+            cursor: pointer; /* Указатель при наведении */
+            position: relative; /* Для позиционирования подсказки */
+        }
+        .seat.occupied {
+            background-color: #ffcccc; /* Цвет для занятых мест */
+            cursor: not-allowed; /* Указатель "нельзя кликнуть" */
+        }
+        .seat.occupied::before {
+            content: attr(title); /* Отображение имени пользователя */
+            position: absolute;
+            top: -30px; /* Позиция подсказки */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .seat.occupied:hover::before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
+        /* Стили для кнопок */
+        .session-button, .admin-button, .logout-button, .back-button, .unbook-button, .delete-account-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .session-button:hover, .admin-button:hover, .logout-button:hover, .back-button:hover, .unbook-button:hover, .delete-account-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Стили для кнопки удаления аккаунта */
+        .delete-account-button {
+            background-color: #dc3545; /* Красный цвет */
+        }
+        .delete-account-button:hover {
+            background-color: #c82333; /* Тёмно-красный цвет */
+        }
+
+        /* Стили для списка сеансов */
+        .session-list {
+            list-style: none;
+            padding: 0;
+        }
+        .session-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        .session-image {
+            width: 100px; /* Ширина изображения */
+            height: 150px; /* Высота изображения */
+            object-fit: cover; /* Масштабирование изображения */
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+        .session-info {
+            flex-grow: 1;
+        }
+        .session-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+        .session-info p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+
+        /* Контейнер для мест и формы */
+        .session-container {
+            display: flex;
+            align-items: flex-start; /* Выравнивание по верхнему краю */
+        }
+
+        /* Карточка для формы снятия брони */
+        .unbook-form-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1; /* Убедитесь, что форма не перекрывает клики */
+        }
+        .unbook-form-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .unbook-form-card label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .unbook-form-card input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .unbook-form-card button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .unbook-form-card button:hover {
+            background-color: #0056b3;
+        }
     </style>
     {% block script %}{% endblock %}
 </head>

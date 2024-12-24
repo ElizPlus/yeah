@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ session.movie }}{% endblock %}
+
+{% block main %}
+    <h2>{{ session.movie }} - {{ session.date }} {{ session.time }}</h2>
+    <img src="/static/images/{{ session.movie }}.jpg" alt="{{ session.movie }}" class="session-image">
+
+    <p>Текущий пользователь: {{ username }}</p>
+
+    {% if is_past %}
+        <p>Этот сеанс уже прошёл.</p>
+    {% endif %}
+
+    <div class="session-container">
+        <!-- Левая часть: квадраты-места -->
+        <div class="seats-container">
+            {% for seat in range(1, 31) %}
+                <div class="seat {% if seat in seats %}occupied{% endif %}" data-seat="{{ seat }}"
+                     {% if seat in seats %}title="Занято пользователем: {{ seats[seat] }}"{% endif %}>
+                    {{ seat }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Правая часть: форма для снятия брони (только для администратора) -->
+        {% if username == 'admin' %}
+            <div class="unbook-form-card">
+                <h3>Снять бронь</h3>
+                <form method="POST" action="/rgz/admin/session/{{ session.id }}/unbook">
+                    <label>Номер места:</label>
+                    <input type="number" name="seat_number" min="1" max="30" required>
+                    <button type="submit" class="unbook-button">Снять бронь</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+    <a href="/rgz/sessions" class="back-button">Назад к сеансам</a>
+
+    <script>
+        // Обработка клика на квадратик
+        document.querySelectorAll('.seat').forEach(seat => {
+            seat.addEventListener('click', () => {
+                const seatNumber = seat.getAttribute('data-seat');
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = window.location.pathname; // Текущий URL
+
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'seat_number';
+                input.value = seatNumber;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            });
+        });
+    </script>
+{% endblock %}

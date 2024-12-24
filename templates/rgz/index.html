@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Кинотеатр{% endblock %}
+
+{% block main %}
+    <h2>Добро пожаловать в кинотеатр</h2>
+    <a href="/rgz/login">Войти</a> | <a href="/rgz/register">Зарегистрироваться</a>
+
+    <!-- Ссылка для администратора -->
+    {% if session['username'] == 'админ' %}
+        <br><a href="/rgz/admin/sessions">Управление сеансами</a>
+    {% endif %}
+{% endblock %}

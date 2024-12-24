@@ -4,13 +4,22 @@
 
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link rel="icon" href="{{ url_for('static', filename='favicon-16x16.png') }}">
-    <link rel="icon" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styl222.css') }}">
 {% endblock %}
 
 {% block main %}
+    <!-- Новогодние декорации -->
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+
     {% if message %}
         <h1>{{ message }}</h1>
         <img src="{{ url_for('static', filename='images/' + image) }}" alt="Подарок">

@@ -2,7 +2,24 @@
 
 {% block lab %}Лабораторная работа 9{% endblock %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styl222.css') }}">
+{% endblock %}
+
 {% block main %}
+    <!-- Новогодние декорации -->
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+    <div class="snowflake"></div>
+
     <h1>Укажите ваш пол</h1>
     <form method="post">
         <label><input type="radio" name="gender" value="мужчина" required> Мужчина</label>

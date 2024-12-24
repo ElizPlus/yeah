@@ -1,4 +1,4 @@
-from flask import Flask, url_for, redirect, render_template, request, abort
+from flask import Flask, url_for, redirect, render_template, request, abort, session
 from flask_sqlalchemy import SQLAlchemy
 from db import db
 import os
@@ -16,6 +16,7 @@ from lab6 import lab6
 from lab7 import lab7
 from lab8 import lab8
 from lab9 import lab9
+from rgz import rgz
 
 
 app = Flask(__name__)
@@ -50,6 +51,16 @@ else:
 
 db.init_app(app)
 
+# Импортируем маршруты
+from .rgz import rgz
+app.register_blueprint(rgz)
+
+# Создаём таблицы в базе данных
+with app.app_context():
+    db.create_all()
+
+
+
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
 app.register_blueprint(lab3)
@@ -59,6 +70,7 @@ app.register_blueprint(lab6)
 app.register_blueprint(lab7)
 app.register_blueprint(lab8)
 app.register_blueprint(lab9)
+app.register_blueprint(rgz)
 
 
 @app.errorhandler(404)
@@ -104,6 +116,7 @@ def nstu():
         <li><a href="/lab7/">Седьмая лабораторная</a></li>
         <li><a href="/lab8/">Восьмая лабораторная</a></li>
         <li><a href="/lab9/">Девятая лабораторная</a></li>
+        <li><a href="/rgz/">РГЗ</a></li>
     <footer>
         <p>&copy; Плюснина Елизавета Евгеньевна, ФБИ-22, 3 курс, 2024</p>
     </footer>
